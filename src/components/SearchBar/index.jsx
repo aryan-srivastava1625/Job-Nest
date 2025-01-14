@@ -1,10 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 const SearchBar = () => {
   return (
-    <div className='flex gap-4 my-10 justify-center px-10 '>
-      <select className='w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md'>
-        <option value="" disabled hidden selected>Job Role</option>
+    <div className="flex gap-4 my-10 justify-center px-10">
+      {/* Job Role Dropdown */}
+      <select
+        defaultValue=""
+        aria-label="Job Role"
+        className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md"
+      >
+        <option value="" disabled hidden>
+          Job Role
+        </option>
         <option value="iOS Developer">iOS Developer</option>
         <option value="Frontend Developer">Frontend Developer</option>
         <option value="Backend Developer">Backend Developer</option>
@@ -29,8 +36,15 @@ const SearchBar = () => {
         <option value="AR/VR Developer">AR/VR Developer</option>
       </select>
 
-      <select className='w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md' >
-        <option value="" disabled hidden selected>Job Type</option>
+      {/* Job Type Dropdown */}
+      <select
+        defaultValue=""
+        aria-label="Job Type"
+        className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md"
+      >
+        <option value="" disabled hidden>
+          Job Type
+        </option>
         <option value="Full Time">Full Time</option>
         <option value="Part Time">Part Time</option>
         <option value="Contract">Contract</option>
@@ -43,8 +57,15 @@ const SearchBar = () => {
         <option value="Volunteer">Volunteer</option>
       </select>
 
-      <select className='w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md'>
-        <option value="" disabled hidden selected>Location</option>
+      {/* Location Dropdown */}
+      <select
+        defaultValue=""
+        aria-label="Location"
+        className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md"
+      >
+        <option value="" disabled hidden>
+          Location
+        </option>
         <option value="Remote">Remote</option>
         <option value="In-Office">In-Office</option>
         <option value="Hybrid">Hybrid</option>
@@ -54,8 +75,15 @@ const SearchBar = () => {
         <option value="Multiple Locations">Multiple Locations</option>
       </select>
 
-      <select className='w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md'>
-      <option value="" disabled hidden selected>Experience</option>
+      {/* Experience Dropdown */}
+      <select
+        defaultValue=""
+        aria-label="Experience"
+        className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md"
+      >
+        <option value="" disabled hidden>
+          Experience
+        </option>
         <option value="Fresher">Fresher</option>
         <option value="Intern">Intern</option>
         <option value="Junior Level">Junior Level</option>
@@ -66,13 +94,15 @@ const SearchBar = () => {
         <option value="Executive Level">Executive Level</option>
       </select>
 
-      <button className='w-64 bg-violet-600 text-white font-bold py-3 rounded-md'>Search</button>
-
-
-      
-    
+      {/* Search Button */}
+      <button
+        type="button"
+        className="w-64 bg-violet-600 text-white font-bold py-3 rounded-md"
+      >
+        Search
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;
