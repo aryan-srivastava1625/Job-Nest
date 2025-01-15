@@ -12,13 +12,19 @@ function App() {
   const [jobs, setJobs] = useState([]);
 
   const fetchJobs = async()=>{
+    const tempJobs = []
     const q = query(collection(db, "jobs"));
 
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
-
+    querySnapshot.forEach((job) => {
+    // console.log(doc.id, " => ", doc.data());
+    tempJobs.push({
+      ...job.data(),
+      id:job.id,
+      postedOn: job.data().postedOn.toDate()
+    })   
   });
+  setJobs(tempJobs);
 
 }
 
@@ -33,7 +39,7 @@ function App() {
       <Header />
       <SearchBar />
       {/* Map over job data and render JobCard components */}
-      {jobData.map((job) => (
+      {jobs.map((job) => (
         <JobCard key={job.id} {...job} />
       ))}
     </div>
