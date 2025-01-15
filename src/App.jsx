@@ -4,19 +4,21 @@ import SearchBar from "./components/SearchBar";
 import JobCard from "./components/JobCard";
 import jobData from "./JobDummyData";
 import { useEffect, useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, orderBy,where,getDocs } from "firebase/firestore";
 import {db} from './firebase.config'
 
 function App() {
 
   const [jobs, setJobs] = useState([]);
 
-  const fetchJobs = async()=>{
+    const fetchJobs = async()=>{
     const tempJobs = []
-    const q = query(collection(db, "jobs"));
+    const jobsRef = query(collection(db, "jobs"));
+    const q = query(jobsRef, orderBy("postedOn","desc"));
+    const req = await getDocs(q);
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((job) => {
+
+    req.forEach((job) => {
     // console.log(doc.id, " => ", doc.data());
     tempJobs.push({
       ...job.data(),
@@ -25,6 +27,29 @@ function App() {
     })   
   });
   setJobs(tempJobs);
+
+}
+
+const fetchJobsCustom = async(jobCriteria)=>{
+  const tempJobs = []
+  const jobsRef = query(collection(db, "jobs"));
+  const q = query(jobsRef,where("type", "==", jobCriteria.type),
+  where("title", "==", jobCriteria.title),
+  where("experience", "==", jobCriteria.experience),
+  where("location", "==", jobCriteria.location),
+  orderBy("postedOn","desc"));
+  const req = await getDocs(q);
+
+
+  req.forEach((job) => {
+  // console.log(doc.id, " => ", doc.data());
+  tempJobs.push({
+    ...job.data(),
+    id:job.id,
+    postedOn: job.data().postedOn.toDate()
+  })   
+});
+setJobs(tempJobs);
 
 }
 
@@ -37,7 +62,7 @@ function App() {
     <div>
       <Navbar />
       <Header />
-      <SearchBar />
+      <SearchBar fetchJobsCustom={fetchJobsCustom} />
       {/* Map over job data and render JobCard components */}
       {jobs.map((job) => (
         <JobCard key={job.id} {...job} />
