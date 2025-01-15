@@ -10,8 +10,11 @@ import {db} from './firebase.config'
 function App() {
 
   const [jobs, setJobs] = useState([]);
+  const [customSearch, setCustomSearch] = useState(false);
 
     const fetchJobs = async()=>{
+      setCustomSearch(false);
+
     const tempJobs = []
     const jobsRef = query(collection(db, "jobs"));
     const q = query(jobsRef, orderBy("postedOn","desc"));
@@ -31,6 +34,7 @@ function App() {
 }
 
 const fetchJobsCustom = async(jobCriteria)=>{
+  setCustomSearch(true);
   const tempJobs = []
   const jobsRef = query(collection(db, "jobs"));
   const q = query(jobsRef,where("type", "==", jobCriteria.type),
@@ -63,7 +67,11 @@ setJobs(tempJobs);
       <Navbar />
       <Header />
       <SearchBar fetchJobsCustom={fetchJobsCustom} />
-      {/* Map over job data and render JobCard components */}
+      {customSearch && 
+        <button onClick={fetchJobs} className="flex pl-[1250px] mb-2">
+          <p className="bg-violet-700 px-10 py-2 rounded-md text-white">Clear Filters</p>
+        </button>
+      }
       {jobs.map((job) => (
         <JobCard key={job.id} {...job} />
       ))}
