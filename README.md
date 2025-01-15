@@ -1,5 +1,7 @@
 # Job-Nest
 
+![Job-Nest Screenshot](images\jobnest.png/jobnest.png)
+
 Job-Nest is a modern job search platform designed to connect job seekers with opportunities in the technology sector. Built with **React** and **Firebase**, it features a sophisticated search system, real-time job listings, and a responsive user interface optimized for various devices.
 
 ## Key Features
